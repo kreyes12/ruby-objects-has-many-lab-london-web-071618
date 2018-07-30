@@ -25,9 +25,9 @@ class Artist
     @songs << song
   end
   
-  def song_count
-    songs = @songs
-    songs.length
+  def self.song_count
+    artist_songs = Song.all.map {|song| song.artist == self}
+    artist_songs.length
   end
   
 end

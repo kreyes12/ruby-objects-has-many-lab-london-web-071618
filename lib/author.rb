@@ -4,10 +4,9 @@ class Author
   
   @@all = []
   
-  def initialize(name=nil, posts)
+  def initialize(name=nil)
     @name = name
-    @posts = posts
-    @@all << self
+    @posts  = []
   end
   
   def self.all
@@ -16,17 +15,18 @@ class Author
   
   def add_post(message)
     message.author = self
-    @@all << message
+    @posts << message
   end
   
   def add_post_by_title(post_title)
     tweet = Post.new(post_title)
     tweet.author = self
-    @@all << tweet
+    @posts << tweet
   end
   
-  def post_count
-    Post.all.count {|message| message.author == self.name}
+  def self.post_count
+   author_posts = Post.all.select {|posts| posts.author == self}
+   author_posts.length
   end
 
 end
